@@ -1,29 +1,41 @@
 package com.test.resource;
 
-import com.test.entity.Contact;
-import com.test.dto.ContactDTO;
-import com.test.service.ContactService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.test.MyBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Lookup;
+import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
 @RestController
+@Scope("singleton")
 public class MyTestController {
 
-    @Autowired
-    private ContactService contactService;
+    private final HttpClient client = HttpClient.newBuilder().build();
+    private static final Logger LOGGER = LoggerFactory.getLogger(MyTestController.class);
 
     @GetMapping("/")
-    public ContactDTO test(Long id){
-        Contact contact = contactService.getStudent(id);
-        ContactDTO studentDTO = new ContactDTO();
-        studentDTO.id = contact.id;
-        studentDTO.name = contact.name;
-        return studentDTO;
+    public String mainPage() throws IOException, InterruptedException {
+//        HttpRequest request = HttpRequest.newBuilder()
+//                .GET()
+//                .uri(URI.create("http://localhost:8081/"))
+//                .build();
+//        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+//        LOGGER.info(("Ответ с " + request.uri().toString() + " получен."));
+//        return response.body();
+        return "Видал чему научился? Сосат, Антошка) \n У меня теперь свой EC2 есть, спасибо индусам.";
     }
 
     @GetMapping("/hello")
-    public String test1(){
+    public String hello() {
         return "Hello!";
     }
+
 }
