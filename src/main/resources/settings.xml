@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--Так делать не желательно, создаётся зависимость от внешнего файла.-->
+    <!--    В таком случае, лучше вынести это в переменную ${}-->
+    <!--    <import resource="C:/Users/Denis_Mishin/Desktop/anotherSettings.xml">-->
+<!--    <import resource="anotherSettings.xml"/>-->
+
+<!--    <bean id="myBean" class="com.epam.spring.mishin.MyBean">-->
+<!--        <property name="thirdBean">-->
+<!--            <ref bean="thirdBean"/>-->
+<!--        </property>-->
+<!--    </bean>-->
+<!--    <bean id="thirdBean" class="com.epam.spring.mishin.ThirdBean" autowire="byType">-->
+<!--        <property name="strings">-->
+<!--            <list>-->
+<!--                <value>2</value>-->
+<!--                <value>4</value>-->
+<!--                <value>6</value>-->
+<!--            </list>-->
+<!--        </property>-->
+<!--    </bean>-->
+    <bean id="first" class="com.test.mybeans.FirstBean" >
+        <constructor-arg index="0" ref="second"/>
+    </bean>
+    <bean id="second" class="com.test.mybeans.SecondBean"/>
+    <bean class="com.test.beanPostProcessors.FirstBeanPostProcessor"/>
+    <bean class="com.test.beanPostProcessors.SecondBeanPostProcessor"/>
+
+</beans>
